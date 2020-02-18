@@ -9,3 +9,13 @@
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+DROP TABLE IF EXISTS dbo.tblCustomer;
+DROP TABLE IF EXISTS dbo.tblFormat;
+DROP TABLE IF EXISTS dbo.tblGenre;
+DROP TABLE IF EXISTS dbo.tblMovie;
+DROP TABLE IF EXISTS dbo.tblDirector;
+DROP TABLE IF EXISTS dbo.tblMovieGenre;
+DROP TABLE IF EXISTS dbo.tblOrder;
+DROP TABLE IF EXISTS dbo.tblOrderItem;
+DROP TABLE IF EXISTS dbo.tblRating;
+DROP TABLE IF EXISTS dbo.tblUser;

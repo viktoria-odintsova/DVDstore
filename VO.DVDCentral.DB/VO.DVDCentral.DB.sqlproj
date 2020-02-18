@@ -60,8 +60,39 @@
     <Folder Include="Post-Deployment" />
     <Folder Include="Pre-Deployment" />
     <Folder Include="Tables" />
+    <Folder Include="Post-Deployment\DefaultData" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Pre-Deployment\Script.PreDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Post-Deployment\Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\tblCustomer.sql" />
+    <Build Include="Tables\tblMovieGenre.sql" />
+    <Build Include="Tables\tblGenre.sql" />
+    <Build Include="Tables\tblUser.sql" />
+    <Build Include="Tables\tblDirector.sql" />
+    <Build Include="Tables\tblOrder.sql" />
+    <Build Include="Tables\tblOrderItem.sql" />
+    <Build Include="Tables\tblFormat.sql" />
+    <Build Include="Tables\tblRating.sql" />
+    <Build Include="Tables\tblMovie.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="VO.DVDCentral.DB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Post-Deployment\DefaultData\Users.sql" />
+    <None Include="Post-Deployment\DefaultData\Movies.sql" />
+    <None Include="Post-Deployment\DefaultData\MovieGenres.sql" />
+    <None Include="Post-Deployment\DefaultData\Genres.sql" />
+    <None Include="Post-Deployment\DefaultData\Formats.sql" />
+    <None Include="Post-Deployment\DefaultData\Directors.sql" />
+    <None Include="Post-Deployment\DefaultData\Ratings.sql" />
+    <None Include="Post-Deployment\DefaultData\Customers.sql" />
+    <None Include="Post-Deployment\DefaultData\Orders.sql" />
+    <None Include="Post-Deployment\DefaultData\OrderItems.sql" />
   </ItemGroup>
 </Project>
