@@ -1,7 +1,7 @@
 ﻿BEGIN
 	INSERT INTO dbo.tblMovie (Id, Title, Description, Cost, RatingId, FormatId, DirectorId, InStkQty, ImagePath)
 	VALUES
-	(4001, 'Avatar', 'Great Movie', 14.99, 13, ),
-	(),
-	()
+	(1, 'Avatar', 'Great Movie', 14.99, 3, 1, 1, 39, 'imagepath'),
+	(2, 'La la land', 'another description', 17.99, 4, 1, 3, 25, 'imagepath'),
+	(3, 'Oceans 8', 'description', 11.99, 1, 1, 2, 20, 'imagepath')
 END

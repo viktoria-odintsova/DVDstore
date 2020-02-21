@@ -1,7 +1,7 @@
 ﻿BEGIN
 	INSERT INTO dbo.tblDirector (Id, FirstName, LastName)
 	VALUES
-	(21, 'James', 'Cameron'),
-	(22, 'Steven', 'Spielberg'),
-	(23, 'Tim', 'Burton')
+	(1, 'James', 'Cameron'),
+	(2, 'Steven', 'Spielberg'),
+	(3, 'Tim', 'Burton')
 END
