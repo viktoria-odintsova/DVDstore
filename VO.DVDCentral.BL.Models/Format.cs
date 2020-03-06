@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VO.DVDCentral.BL
+namespace VO.DVDCentral.BL.Models
 {
-    public class Class1
+    class Format
     {
     }
 }

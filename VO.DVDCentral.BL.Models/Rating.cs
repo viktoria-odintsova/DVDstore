@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VO.DVDCentral.BL.Models
 {
-    public class Class1
+    class Rating
     {
     }
 }
