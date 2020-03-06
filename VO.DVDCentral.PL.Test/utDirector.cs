@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VO.DVDCentral.PL;
 
 namespace VO.DVDCentral.PL.Test
 {
@@ -11,59 +12,63 @@ namespace VO.DVDCentral.PL.Test
     [TestClass]
     public class utDirector
     {
-        public utDirector()
+        [TestMethod]
+        public void LoadTest()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            //instantiate a datacontext variable connected to the database
+            DVDCentralEntities dc = new DVDCentralEntities();
+
+            var results = from director in dc.tblDirectors
+                          select director;
+
+            int expected = 3;
+            int actual = results.Count();
+
+            Assert.AreEqual(expected, actual);
         }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void InsertTest()
         {
-            //
-            // TODO: Add test logic here
-            //
+            using(DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                //make a new director
+                tblDirector newrow = new tblDirector();
+
+                //set the column values
+                newrow.Id = -32;
+                newrow.FirstName = "FirstN";
+                newrow.LastName = "LastN";
+
+                //add the row
+                dc.tblDirectors.Add(newrow);
+
+                //save the changes
+                int results = dc.SaveChanges();
+
+                Assert.IsTrue(results > 0);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateTest()
+        {
+            using(DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                //get the record that I want to update
+                tblDirector row = (from dt in dc.tblDirectors
+                                   where dt.Id == -32
+                                   select dt).FirstOrDefault();
+
+                if(row != null)
+                {
+                    row.FirstName = "updated FN";
+                    row.LastName = "updated LN";
+
+                    int actual = dc.SaveChanges();
+                    Assert.AreNotEqual(0, actual);
+                }
+            }
         }
     }
 }

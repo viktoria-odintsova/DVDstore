@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace VO.DVDCentral.BL.Models
 {
-    class Format
+    public class Format
     {
+        public int Id { get; set; }
+        public string Description { get; set; }
     }
 }

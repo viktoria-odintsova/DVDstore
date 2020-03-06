@@ -5,65 +5,78 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace VO.DVDCentral.PL.Test
 {
-    /// <summary>
-    /// Summary description for utRating
-    /// </summary>
+    
     [TestClass]
     public class utRating
     {
-        public utRating()
+        [TestMethod]
+        public void LoadTest()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            DVDCentralEntities dc = new DVDCentralEntities();
+
+            var results = from rating in dc.tblRatings
+                          select rating;
+
+            int expected = 4;
+            int actual = results.Count();
+
+            Assert.AreEqual(expected, actual);
         }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void InsertTest()
         {
-            //
-            // TODO: Add test logic here
-            //
+            using(DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                tblRating newrow = new tblRating();
+
+                newrow.Id = -3;
+                newrow.Description = "ABC";
+
+                dc.tblRatings.Add(newrow);
+
+                int results = dc.SaveChanges();
+
+                Assert.IsTrue(results > 0);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateTest()
+        {
+            using(DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                tblRating row = (from dt in dc.tblRatings
+                                 where dt.Id == -3
+                                 select dt).FirstOrDefault();
+
+                if(row != null)
+                {
+                    row.Description = "DJ";
+
+                    int actual = dc.SaveChanges();
+                    Assert.AreNotEqual(0, actual);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void DeleteTest()
+        {
+            using(DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                tblRating row = (from dt in dc.tblRatings
+                                 where dt.Id == -3
+                                 select dt).FirstOrDefault();
+
+                if(row != null)
+                {
+                    dc.tblRatings.Remove(row);
+
+                    int actual = dc.SaveChanges();
+                    Assert.AreNotEqual(0, actual);
+                }
+            }
         }
     }
 }

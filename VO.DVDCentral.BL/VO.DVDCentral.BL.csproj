@@ -48,5 +48,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingManager.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VO.DVDCentral.BL.Models\VO.DVDCentral.BL.Models.csproj">
+      <Project>{ad9a8fbe-d5d8-4ca8-8aa1-f1ce6b6f7d44}</Project>
+      <Name>VO.DVDCentral.BL.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VO.DVDCentral.PL\VO.DVDCentral.PL.csproj">
+      <Project>{3d60453d-da1a-40e4-9163-eea8955dd053}</Project>
+      <Name>VO.DVDCentral.PL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

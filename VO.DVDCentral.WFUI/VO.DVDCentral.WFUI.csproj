@@ -223,6 +223,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VO.DVDCentral.BL.Models\VO.DVDCentral.BL.Models.csproj">
+      <Project>{ad9a8fbe-d5d8-4ca8-8aa1-f1ce6b6f7d44}</Project>
+      <Name>VO.DVDCentral.BL.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VO.DVDCentral.BL\VO.DVDCentral.BL.csproj">
+      <Project>{162bfd7d-640d-4ee3-b25c-e23da7df606e}</Project>
+      <Name>VO.DVDCentral.BL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
