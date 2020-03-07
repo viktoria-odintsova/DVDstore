@@ -1,113 +1,151 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using VO.DVDCentral.BL.Models;
-//using VO.DVDCentral.PL;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.PL;
 
-//namespace VO.DVDCentral.BL
-//{
-//    class FormatManager
-//    {
-//        public static int Insert(out int id, int directorId, )
-//        {
-//            try
-//            {
-//                using ()
-//                {
+namespace VO.DVDCentral.BL
+{
+    public class FormatManager
+    {
+        public static int Insert(out int id, string description)
+        {
+            try
+            {
+                using (DVDCentralEntities dc = new DVDCentralEntities())
+                {
+                    tblFormat newrow = new tblFormat();
 
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                throw ex;
-//            }
-//        }
+                    newrow.Description = description;
 
-//        public static int Insert(Director director)
-//        {
-//            try
-//            {
+                    newrow.Id = dc.tblFormats.Any() ? dc.tblFormats.Max(dt => dt.Id) + 1 : 1;
 
-//            }
-//            catch (Exception ex)
-//            {
+                    id = newrow.Id;
 
-//                throw ex;
-//            }
-//        }
+                    dc.tblFormats.Add(newrow);
 
-//        public static int Delete(int id)
-//        {
-//            try
-//            {
+                    return dc.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-//            }
-//            catch (Exception ex)
-//            {
+        public static int Insert(Format format)
+        {
+            try
+            {
+                int id = 0;
+                int result = Insert(out id, format.Description);
+                format.Id = id;
+                return result;
+            }
+            catch (Exception ex)
+            {
 
-//                throw ex;
-//            }
-//        }
+                throw ex;
+            }
+        }
 
-//        public static int Update(int id, string )
-//        {
-//            try
-//            {
-//                using ()
-//                {
+        public static int Delete(int id)
+        {
+            try
+            {
+                using (DVDCentralEntities dc = new DVDCentralEntities())
+                {
+                    tblFormat deleterow = (from dt in dc.tblFormats
+                                           where dt.Id == id
+                                           select dt).FirstOrDefault();
+                    dc.tblFormats.Remove(deleterow);
 
-//                }
-//            }
-//            catch (Exception ex)
-//            {
+                    return dc.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
 
-//                throw ex;
-//            }
-//        }
-//        public static int Update(Director director)
-//        {
-//            return Update(director.Id, );
-//        }
+                throw ex;
+            }
+        }
 
-//        public static List<Director> Load()
-//        {
-//            try
-//            {
-//                using ()
-//                {
-//                    List<> s = new List<>();
-//                    foreach ()
-//                    {
+        public static int Update(int id, string description)
+        {
+            try
+            {
+                using (DVDCentralEntities dc = new DVDCentralEntities())
+                {
+                    tblFormat updaterow = (from dt in dc.tblFormats
+                                           where dt.Id == id
+                                           select dt).FirstOrDefault();
 
-//                    }
-//                }
-//                return;
-//            }
-//            catch (Exception ex)
-//            {
+                    updaterow.Description = description;
 
-//                throw ex;
-//            }
-//        }
+                    return dc.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
 
-//        public static Director LoadById(int id)
-//        {
-//            try
-//            {
-//                using ()
-//                {
+                throw ex;
+            }
+        }
+        public static int Update(Format format)
+        {
+            return Update(format.Id, format.Description);
+        }
+
+        public static List<Format> Load()
+        {
+            try
+            {
+                using (DVDCentralEntities dc = new DVDCentralEntities())
+                {
+                    List<Format> formats = new List<Format>();
+                    foreach (tblFormat dt in dc.tblFormats)
+                    {
+                        formats.Add(new Format
+                        {
+                            Id = dt.Id,
+                            Description = dt.Description
+                        });
+                    }
+                return formats;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public static Format LoadById(int id)
+        {
+            try
+            {
+                using (DVDCentralEntities dc = new DVDCentralEntities())
+                {
+                    tblFormat row = (from dt in dc.tblFormats
+                                     where dt.Id == id
+                                     select dt).FirstOrDefault();
+
+                    if (row != null)
+                        return new Format { Id = row.Id, Description = row.Description };
+                    else
+                        throw new Exception("Row was not found");
 
 
+                }
+            }
+            catch (Exception ex)
+            {
 
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-
-//                throw ex;
-//            }
-//        }
-//    }
-//}
+                throw ex;
+            }
+        }
+    }
+}

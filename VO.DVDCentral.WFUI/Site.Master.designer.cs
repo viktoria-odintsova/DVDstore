@@ -7,22 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VO.DVDCentral.WFUI
-{
-
-
-    public partial class SiteMaster
-    {
-
+namespace VO.DVDCentral.WFUI {
+    
+    
+    public partial class SiteMaster {
+        
         /// <summary>
-        /// HeadContent control.
+        /// dpMovies control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
-
+        protected global::System.Web.UI.WebControls.Repeater dpMovies;
+        
         /// <summary>
         /// MainContent control.
         /// </summary>

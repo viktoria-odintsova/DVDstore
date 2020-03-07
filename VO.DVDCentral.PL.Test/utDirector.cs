@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VO.DVDCentral.PL;
+using System.Linq;
 
 namespace VO.DVDCentral.PL.Test
 {

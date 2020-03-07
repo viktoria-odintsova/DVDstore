@@ -1,6 +1,6 @@
 ﻿/* Move down content because we have a fixed navbar that is 50px tall */
 body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
@@ -28,4 +28,9 @@ textarea {
     .body-content {
         padding: 0;
     }
+}
+
+.bg-dark {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,6,115,1) 32%, rgba(0,163,176,1) 91%);
 }
