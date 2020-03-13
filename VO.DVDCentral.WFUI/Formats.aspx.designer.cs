@@ -10,7 +10,7 @@
 namespace VO.DVDCentral.WFUI {
     
     
-    public partial class Ratings {
+    public partial class Formats {
         
         /// <summary>
         /// Label1 control.
@@ -22,13 +22,13 @@ namespace VO.DVDCentral.WFUI {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// ddlRatings control.
+        /// ddlFormats control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRatings;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFormats;
         
         /// <summary>
         /// Label3 control.

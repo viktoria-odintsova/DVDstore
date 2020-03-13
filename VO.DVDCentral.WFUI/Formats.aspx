@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Ratings.aspx.cs" Inherits="VO.DVDCentral.WFUI.Ratings" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Formats.aspx.cs" Inherits="VO.DVDCentral.WFUI.Formats" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="header rounded-top">
-        <h3>Maintain Ratings </h3>
+     <div class="header rounded-top">
+        <h3>Maintain Formats </h3>
     </div>
     <p></p>
 
@@ -10,10 +10,10 @@
             <asp:Label ID="Label1" runat="server" Text="Rating:"></asp:Label>
         </div>
         <div class="control-label col-md-3">
-            <asp:DropDownList ID="ddlRatings" runat="server"
+            <asp:DropDownList ID="ddlFormats" runat="server"
                 CssClass="form-control"
                 AutoPostBack="true"
-                OnSelectedIndexChanged="ddlRatings_SelectedIndexChanged">
+                OnSelectedIndexChanged="ddlFormats_SelectedIndexChanged">
             </asp:DropDownList>
         </div>
     </div>

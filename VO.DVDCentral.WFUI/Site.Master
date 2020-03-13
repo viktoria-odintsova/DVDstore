@@ -85,6 +85,10 @@
                         <a class="nav-link" runat="server" href="~/Orders">Orders</a>
 
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" runat="server" href="~/Formats">Formats</a>
+
+                    </li>
                 </ul>
             </div>
         </nav>
