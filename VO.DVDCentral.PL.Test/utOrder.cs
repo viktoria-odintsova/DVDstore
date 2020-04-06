@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VO.DVDCentral.PL;
 using System.Linq;
+using VO.DVDCentral.PL;
 
 namespace VO.DVDCentral.PL.Test
 {
-   
     [TestClass]
-    public class utGenre
+    public class utOrder
     {
         [TestMethod]
         public void LoadTest()
         {
             DVDCentralEntities dc = new DVDCentralEntities();
 
-            var results = from genre in dc.tblGenres
-                          select genre;
+            var results = from order in dc.tblOrders
+                          select order;
 
-            int expected = 5;
+            int expected = 3;
             int actual = results.Count();
 
             Assert.AreEqual(expected, actual);
@@ -30,12 +27,16 @@ namespace VO.DVDCentral.PL.Test
         {
             using(DVDCentralEntities dc = new DVDCentralEntities())
             {
-                tblGenre newrow = new tblGenre();
+                tblOrder newrow = new tblOrder();
 
-                newrow.Id = 555;
-                newrow.Description = "name of genre";
+                newrow.Id = -324;
+                newrow.UserId = 5;
+                newrow.OrderDate = DateTime.Now;
+                newrow.ShipDate = DateTime.Now;
+                newrow.CustomerId = 35324534;
 
-                dc.tblGenres.Add(newrow);
+                dc.tblOrders.Add(newrow);
+
                 int results = dc.SaveChanges();
 
                 Assert.IsTrue(results > 0);
@@ -47,13 +48,16 @@ namespace VO.DVDCentral.PL.Test
         {
             using(DVDCentralEntities dc = new DVDCentralEntities())
             {
-                tblGenre row = (from dt in dc.tblGenres
-                                where dt.Id == 555
+                tblOrder row = (from dt in dc.tblOrders
+                                where dt.Id == -324
                                 select dt).FirstOrDefault();
 
                 if(row != null)
                 {
-                    row.Description = "updated description";
+                    row.CustomerId = 111;
+                    row.UserId = 999;
+                    row.ShipDate = DateTime.Now;
+                    row.OrderDate = DateTime.Today;
 
                     int actual = dc.SaveChanges();
                     Assert.AreNotEqual(0, actual);
@@ -66,13 +70,13 @@ namespace VO.DVDCentral.PL.Test
         {
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
-                tblGenre row = (from dt in dc.tblGenres
-                                where dt.Id == 555
+                tblOrder row = (from dt in dc.tblOrders
+                                where dt.Id == -324
                                 select dt).FirstOrDefault();
 
                 if(row != null)
                 {
-                    dc.tblGenres.Remove(row);
+                    dc.tblOrders.Remove(row);
                     int actual = dc.SaveChanges();
                     Assert.AreNotEqual(0, actual);
                 }

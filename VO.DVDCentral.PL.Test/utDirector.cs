@@ -71,5 +71,24 @@ namespace VO.DVDCentral.PL.Test
                 }
             }
         }
+
+        [TestMethod]
+        public void DeleteTest()
+        {
+            using(DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                tblDirector row = (from dt in dc.tblDirectors
+                                   where dt.Id == -32
+                                   select dt).FirstOrDefault();
+
+                if(row != null)
+                {
+                    dc.tblDirectors.Remove(row);
+
+                    int actual = dc.SaveChanges();
+                    Assert.AreNotEqual(0, actual);
+                }
+            }
+        }
     }
 }
