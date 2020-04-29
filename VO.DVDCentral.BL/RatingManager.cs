@@ -8,7 +8,7 @@ using VO.DVDCentral.PL;
 
 namespace VO.DVDCentral.BL
 {
-    public class RatingManager
+    public static class RatingManager
     {
         public static int Insert(out int id, string description)
         {

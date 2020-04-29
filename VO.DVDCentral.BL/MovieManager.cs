@@ -8,7 +8,7 @@ using VO.DVDCentral.PL;
 
 namespace VO.DVDCentral.BL
 {
-    public class MovieManager
+    public static class MovieManager
     {
         public static int Insert(out int id, string title, string description, double cost, int ratingId, int directorId, int formatId, int inStkQty, string imagePath)
         {

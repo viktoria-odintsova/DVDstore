@@ -8,25 +8,59 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", New With { .area = "" }, New With { .class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">DVD Central</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Togger Navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/">Home</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/About">About</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Contact">Contact</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Movies">Movies</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Directors">Directors</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Ratings">Ratings</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Genres">Genres</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Orders">Orders</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Formats">Formats</a>
+
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -8,7 +8,7 @@ using VO.DVDCentral.PL;
 
 namespace VO.DVDCentral.BL
 {
-    public class GenreManager
+    public static class GenreManager
     {
         public static int Insert(out int id, string description)
         {

@@ -8,7 +8,7 @@ using VO.DVDCentral.PL;
 
 namespace VO.DVDCentral.BL
 {
-    public class DirectorManager
+    public static class DirectorManager
     {
         public static int Insert(out int id, string firstName, string lastName)
         {
