@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.vb" Inherits="VO.DVDCentral.MVCUI.MvcApplication" Language="VB" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="VO.DVDCentral.MVCUI.MvcApplication" Language="C#" %>

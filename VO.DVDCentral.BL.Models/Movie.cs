@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,15 @@ namespace VO.DVDCentral.BL.Models
         public int RatingId { get; set; }
         public int FormatId { get; set; }
         public int DirectorId { get; set; }
+        [DisplayName("Quantity In Stock")]
         public int InStkQty { get; set; }
+        [DisplayName("Image")]
         public string ImagePath { get; set; }
+        [DisplayName("Rating")]
+        public string RatingDescription { get; set; }
+        [DisplayName("Format")]
+        public string FormatDescription { get; set; }
+        [DisplayName("Director")]
+        public string DirectorName { get; set; }
     }
 }
