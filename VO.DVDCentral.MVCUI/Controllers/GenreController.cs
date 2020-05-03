@@ -13,13 +13,22 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Genre
         public ActionResult Index()
         {
+            ViewBag.Title = "Index";
             List<Genre> genres = GenreManager.Load();
             return View(genres);
+        }
+
+        [ChildActionOnly]
+        public ActionResult Sidebar()
+        {
+            var genres = GenreManager.Load();
+            return PartialView(genres);
         }
 
         // GET: Genre/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.Title = "Details";
             Genre genre = GenreManager.LoadById(id);
             return View(genre);
         }
@@ -27,6 +36,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Genre/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
             Genre genre = new Genre();
             return View(genre);
         }
@@ -50,6 +60,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Genre/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Title = "Edit";
             Genre genre = GenreManager.LoadById(id);
             return View(genre);
         }
@@ -73,6 +84,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Genre/Delete/5
         public ActionResult Delete(int id)
         {
+            ViewBag.Title = "Delete";
             Genre genre = GenreManager.LoadById(id);
             return View(genre);
         }

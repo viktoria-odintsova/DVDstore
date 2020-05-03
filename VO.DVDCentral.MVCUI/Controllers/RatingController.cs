@@ -15,6 +15,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Rating
         public ActionResult Index()
         {
+            ViewBag.Title = "Index";
             ratings = RatingManager.Load();
             return View(ratings);
         }
@@ -22,6 +23,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Rating/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.Title = "Details";
             Rating rating = RatingManager.LoadById(id);
             return View(rating);
         }
@@ -29,6 +31,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Rating/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
             Rating rating = new Rating();
             return View(rating);
         }
@@ -52,6 +55,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Rating/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Title = "Edit";
             Rating rating = RatingManager.LoadById(id);
             return View(rating);
         }
@@ -75,6 +79,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Rating/Delete/5
         public ActionResult Delete(int id)
         {
+            ViewBag.Title = "Delete";
             Rating rating = RatingManager.LoadById(id);
             return View(rating);
         }

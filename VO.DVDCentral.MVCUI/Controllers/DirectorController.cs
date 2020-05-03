@@ -13,6 +13,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Director
         public ActionResult Index()
         {
+            ViewBag.Title = "Index";
             List<Director> directors = DirectorManager.Load();
             return View(directors);
         }
@@ -20,6 +21,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Director/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.Title = "Details";
             Director director = DirectorManager.LoadById(id);
             return View(director);
         }
@@ -27,6 +29,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Director/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
             Director director = new Director();
             return View(director);
         }
@@ -50,6 +53,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Director/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Title = "Edit";
             Director director = DirectorManager.LoadById(id);
             return View(director);
         }
@@ -73,6 +77,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Director/Delete/5
         public ActionResult Delete(int id)
         {
+            ViewBag.Title = "Delete";
             Director director = DirectorManager.LoadById(id);
             return View(director);
         }

@@ -311,6 +311,7 @@
     <Content Include="Views\Movie\Index.cshtml" />
     <Content Include="Views\Movie\Details.cshtml" />
     <Content Include="Views\Movie\Delete.cshtml" />
+    <Content Include="Views\Genre\Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

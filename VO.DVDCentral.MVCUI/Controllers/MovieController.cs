@@ -13,6 +13,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Movie
         public ActionResult Index()
         {
+            ViewBag.Title = "Index";
             List<Movie> movies = MovieManager.Load();
             return View(movies);
         }
@@ -20,6 +21,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Movie/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.Title = "Details";
             Movie movie = MovieManager.LoadById(id);
             return View(movie);
         }
@@ -27,6 +29,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Movie/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
             Movie movie = new Movie();
             return View(movie);
         }
@@ -50,6 +53,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Movie/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Title = "Edit";
             Movie movie = MovieManager.LoadById(id);
             return View(movie);
         }
@@ -73,6 +77,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Movie/Delete/5
         public ActionResult Delete(int id)
         {
+            ViewBag.Title = "Delete";
             Movie movie = MovieManager.LoadById(id);
             return View(movie);
         }

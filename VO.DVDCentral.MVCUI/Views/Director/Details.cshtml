@@ -1,13 +1,10 @@
 ﻿@model VO.DVDCentral.BL.Models.Director
 
 @{
-    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
+<div class="ml-2">
     <h4>Director</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -37,7 +34,7 @@
 
     </dl>
 </div>
-<p>
+<p class="ml-2">
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

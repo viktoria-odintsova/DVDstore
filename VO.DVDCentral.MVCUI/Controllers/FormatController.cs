@@ -15,6 +15,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Format
         public ActionResult Index()
         {
+            ViewBag.Title = "Index";
             formats = FormatManager.Load();
             return View(formats);
         }
@@ -22,6 +23,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Format/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.Title = "Details";
             Format format = new Format();
             format = FormatManager.LoadById(id);
             return View(format);
@@ -30,6 +32,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Format/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
             Format format = new Format();
             return View(format);
         }
@@ -53,6 +56,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Format/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Title = "Edit";
             Format format = new Format();
             format = FormatManager.LoadById(id);
             return View(format);
@@ -77,6 +81,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Format/Delete/5
         public ActionResult Delete(int id)
         {
+            ViewBag.Title = "Delete";
             Format format = new Format();
             format = FormatManager.LoadById(id);
             return View(format);

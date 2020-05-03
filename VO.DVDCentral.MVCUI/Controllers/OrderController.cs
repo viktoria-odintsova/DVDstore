@@ -13,6 +13,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Order
         public ActionResult Index()
         {
+            ViewBag.Title = "Index";
             List<Order> orders = OrderManager.Load();
             return View();
         }
@@ -20,6 +21,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Order/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.Title = "Details";
             Order order = OrderManager.LoadById(id);
             return View(order);
         }
@@ -27,6 +29,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Order/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
             Order order = new Order();
             return View(order);
         }
@@ -50,6 +53,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Order/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Title = "Edit";
             Order order = OrderManager.LoadById(id);
             return View(order);
         }
@@ -73,6 +77,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Order/Delete/5
         public ActionResult Delete(int id)
         {
+            ViewBag.Title = "Delete";
             Order order = OrderManager.LoadById(id);
             return View(order);
         }
