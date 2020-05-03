@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.MVCUI.ViewModels;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
@@ -16,6 +17,14 @@ namespace VO.DVDCentral.MVCUI.Controllers
             ViewBag.Title = "Index";
             List<Movie> movies = MovieManager.Load();
             return View(movies);
+        }
+
+        public ActionResult Browse(int id, string description)
+        {
+
+            ViewBag.Title = description;
+            var movies = MovieManager.Load(id);
+            return View("Index", movies);
         }
 
         // GET: Movie/Details/5
@@ -30,18 +39,26 @@ namespace VO.DVDCentral.MVCUI.Controllers
         public ActionResult Create()
         {
             ViewBag.Title = "Create";
-            Movie movie = new Movie();
-            return View(movie);
+            MovieGenresDirectorsRatingsFormats mdf = new MovieGenresDirectorsRatingsFormats();
+
+            mdf.Movie = new DVDCentral.BL.Models.Movie();
+            mdf.FormatList = FormatManager.Load();
+            mdf.RatingList = RatingManager.Load();
+            mdf.DirectorList = DirectorManager.Load();
+            mdf.GenreList = GenreManager.Load();
+
+            return View(mdf);
         }
 
         // POST: Movie/Create
         [HttpPost]
-        public ActionResult Create(Movie movie)
+        public ActionResult Create(MovieGenresDirectorsRatingsFormats mdf)
         {
             try
             {
                 // TODO: Add insert logic here
-                MovieManager.Insert(movie);
+                MovieManager.Insert(mdf.Movie);
+                mdf.GenreIds.ToList().ForEach(g => MovieGenreManager.Add(mdf.Movie.Id, g));
                 return RedirectToAction("Index");
             }
             catch
@@ -54,18 +71,49 @@ namespace VO.DVDCentral.MVCUI.Controllers
         public ActionResult Edit(int id)
         {
             ViewBag.Title = "Edit";
-            Movie movie = MovieManager.LoadById(id);
-            return View(movie);
+
+            MovieGenresDirectorsRatingsFormats mgdrf = new MovieGenresDirectorsRatingsFormats();
+
+            mgdrf.Movie = MovieManager.LoadById(id);
+            mgdrf.RatingList = RatingManager.Load();
+            mgdrf.FormatList = FormatManager.Load();
+            mgdrf.GenreList = GenreManager.Load();
+            mgdrf.DirectorList = DirectorManager.Load();
+
+            mgdrf.Movie.Genres = MovieManager.LoadGenres(id);
+            mgdrf.GenreIds = mgdrf.Movie.Genres.Select(g => g.Id);
+            Session["genreids"] = mgdrf.GenreIds;
+
+
+            return View(mgdrf);
         }
 
         // POST: Movie/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Movie movie)
+        public ActionResult Edit(int id, MovieGenresDirectorsRatingsFormats mdf)
         {
             try
             {
+                IEnumerable<int> oldgenreids = new List<int>();
+                if (Session["genreids"] != null)
+                {
+                    oldgenreids = (IEnumerable<int>)Session["genreids"];
+                }
+
+                IEnumerable<int> newgenreids = new List<int>();
+                if(mdf.GenreIds != null)
+                {
+                    newgenreids = mdf.GenreIds;
+                }
+
+                IEnumerable<int> deletes = oldgenreids.Except(newgenreids);
+                IEnumerable<int> adds = newgenreids.Except(oldgenreids);
+
+                deletes.ToList().ForEach(d => MovieGenreManager.Delete(id, d));
+                adds.ToList().ForEach(a => MovieGenreManager.Add(id, a));
+
                 // TODO: Add update logic here
-                MovieManager.Insert(movie);
+                MovieManager.Update(mdf.Movie);
                 return RedirectToAction("Index");
             }
             catch

@@ -6,7 +6,7 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.Description, "Load", "Genre", new { id = item.Id }, null)
+                    @Html.ActionLink(item.Description, "Browse", "Movie", new { id = item.Id, description = item.Description }, null)
                 </td>
             </tr>
         }

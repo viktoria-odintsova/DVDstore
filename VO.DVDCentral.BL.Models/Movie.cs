@@ -26,5 +26,11 @@ namespace VO.DVDCentral.BL.Models
         public string FormatDescription { get; set; }
         [DisplayName("Director")]
         public string DirectorName { get; set; }
+        public List<Genre> Genres { get; set; }
+
+        public Movie()
+        {
+            Genres = new List<Genre>();
+        }
     }
 }

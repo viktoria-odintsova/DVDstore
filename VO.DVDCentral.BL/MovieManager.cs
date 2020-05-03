@@ -116,6 +116,10 @@ namespace VO.DVDCentral.BL
 
         public static List<Movie> Load()
         {
+            return Load(null);
+        }
+        public static List<Movie> Load(int? genreId)
+        {
             try
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
@@ -126,6 +130,8 @@ namespace VO.DVDCentral.BL
                                   join r in dc.tblRatings on m.RatingId equals r.Id
                                   join d in dc.tblDirectors on m.DirectorId equals d.Id
                                   join f in dc.tblFormats on m.FormatId equals f.Id
+                                  join mg in dc.tblMovieGenres on m.Id equals mg.MovieId
+                                  where (mg.GenreId == genreId || genreId == null)
                                   orderby m.Title
                                   select new
                                   {
@@ -226,6 +232,12 @@ namespace VO.DVDCentral.BL
 
                 throw ex;
             }
+        }
+
+
+        public static List<Genre> LoadGenres(int movieId)
+        {
+            return GenreManager.LoadByMovieId(movieId);
         }
     }
 }

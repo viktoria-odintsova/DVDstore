@@ -144,5 +144,33 @@ namespace VO.DVDCentral.BL
                 throw ex;
             }
         }
+
+        public static List<Genre> LoadByMovieId(int movieId)
+        {
+            try
+            {
+                using (DVDCentralEntities dc = new DVDCentralEntities())
+                {
+                    List<Genre> genres = new List<Genre>();
+
+                    var results = (from g in dc.tblGenres
+                                   join mg in dc.tblMovieGenres on g.Id equals mg.GenreId
+                                   where mg.MovieId == movieId
+                                   select new
+                                   {
+                                       g.Id,
+                                       g.Description
+                                   }).ToList();
+
+                    results.ForEach(r => genres.Add(new Genre { Id = r.Id, Description = r.Description }));
+
+                    return genres;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
