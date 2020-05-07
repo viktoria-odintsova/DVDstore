@@ -48,6 +48,10 @@ namespace VO.DVDCentral.BL
             try
             {
                 int id = 0;
+                if(movie.ImagePath == null)
+                {
+                    movie.ImagePath = "";
+                }
                 int result = Insert(out id, movie.Title, movie.Description, movie.Cost, movie.RatingId, movie.DirectorId, movie.FormatId, movie.InStkQty, movie.ImagePath);
                 movie.Id = id;
                 return result;
@@ -111,6 +115,10 @@ namespace VO.DVDCentral.BL
         }
         public static int Update(Movie movie)
         {
+            if(movie.ImagePath == null)
+            {
+                movie.ImagePath = "";
+            }
             return Update(movie.Id, movie.Title, movie.Description, movie.Cost, movie.RatingId, movie.DirectorId, movie.FormatId, movie.InStkQty, movie.ImagePath);
         }
 
@@ -131,7 +139,9 @@ namespace VO.DVDCentral.BL
                                   join d in dc.tblDirectors on m.DirectorId equals d.Id
                                   join f in dc.tblFormats on m.FormatId equals f.Id
                                   join mg in dc.tblMovieGenres on m.Id equals mg.MovieId
-                                  where (mg.GenreId == genreId || genreId == null)
+                                  into gj
+                                  from genre in gj.DefaultIfEmpty()
+                                  where (genre.GenreId == genreId || genreId == null)
                                   orderby m.Title
                                   select new
                                   {
@@ -148,7 +158,7 @@ namespace VO.DVDCentral.BL
                                       d.FirstName,
                                       d.LastName,
                                       FormatDescription = f.Description
-                                  }).ToList();
+                                  }).Distinct().ToList();
 
                     movies.ForEach(m => results.Add(new Movie {
                         Id = m.MovieId,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +16,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Index";
-            List<Movie> movies = MovieManager.Load();
+            var movies = MovieManager.Load();
             return View(movies);
         }
 
@@ -31,7 +32,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         public ActionResult Details(int id)
         {
             ViewBag.Title = "Details";
-            Movie movie = MovieManager.LoadById(id);
+            var movie = MovieManager.LoadById(id);
             return View(movie);
         }
 
@@ -56,14 +57,31 @@ namespace VO.DVDCentral.MVCUI.Controllers
         {
             try
             {
+                if(mdf.File != null)
+                {
+                    mdf.Movie.ImagePath = mdf.File.FileName;
+                    string target = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(mdf.File.FileName));
+
+                    if (!System.IO.File.Exists(target))
+                    {
+                        mdf.File.SaveAs(target);
+                        ViewBag.Message = "File uploaded successfully...";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "File already exists...";
+                    }
+                }
+
                 // TODO: Add insert logic here
                 MovieManager.Insert(mdf.Movie);
                 mdf.GenreIds.ToList().ForEach(g => MovieGenreManager.Add(mdf.Movie.Id, g));
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewBag.Message = ex.Message;
+                return View(mdf);
             }
         }
 
@@ -94,6 +112,22 @@ namespace VO.DVDCentral.MVCUI.Controllers
         {
             try
             {
+                if (mdf.File != null)
+                {
+                    mdf.Movie.ImagePath = mdf.File.FileName;
+                    string target = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(mdf.File.FileName));
+
+                    if (!System.IO.File.Exists(target))
+                    {
+                        mdf.File.SaveAs(target);
+                        ViewBag.Message = "File uploaded successfully...";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "File already exists...";
+                    }
+                }
+
                 IEnumerable<int> oldgenreids = new List<int>();
                 if (Session["genreids"] != null)
                 {
@@ -101,7 +135,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
                 }
 
                 IEnumerable<int> newgenreids = new List<int>();
-                if(mdf.GenreIds != null)
+                if (mdf.GenreIds != null)
                 {
                     newgenreids = mdf.GenreIds;
                 }
@@ -116,9 +150,10 @@ namespace VO.DVDCentral.MVCUI.Controllers
                 MovieManager.Update(mdf.Movie);
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewBag.Message = ex.Message;
+                return View(mdf);
             }
         }
 
@@ -137,6 +172,8 @@ namespace VO.DVDCentral.MVCUI.Controllers
             try
             {
                 // TODO: Add delete logic here
+                movie.Genres = MovieManager.LoadGenres(id);
+                movie.Genres.ForEach(g => MovieGenreManager.Delete(id, g.Id));
                 MovieManager.Delete(id);
                 return RedirectToAction("Index");
             }

@@ -34,7 +34,7 @@ namespace VO.DVDCentral.BL
                 mg.GenreId = genreId;
                 mg.MovieId = movieId;
 
-                dc.tblMovieGenres.Remove(mg);
+                dc.tblMovieGenres.Add(mg);
                 dc.SaveChanges();
             }
         }

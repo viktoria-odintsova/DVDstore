@@ -15,6 +15,7 @@ namespace VO.DVDCentral.MVCUI.ViewModels
         public List<Format> FormatList { get; set; }
         public List<Director> DirectorList { get; set; }
         public IEnumerable<int> GenreIds { get; set; }
+        public HttpPostedFileBase File { get; set; }
         
     }
 }
