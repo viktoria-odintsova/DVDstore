@@ -86,6 +86,7 @@
             @Html.LabelFor(model => model.Movie.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <img src="~/images/@Model.Movie.ImagePath" id="movieimage" class="imagepropmed" alt="@Model.Movie.Title" onclick="on('/images/@Model.Movie.ImagePath');" /><br /><br />
+                @Html.EditorFor(model => model.Movie.ImagePath, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" }})
                 <input type="file" name="File" id="File" accept="image/*" onchange="loadFile(event)" />
                 @Html.ValidationMessageFor(model => model.Movie.ImagePath, "", new { @class = "text-danger" })
             </div>
