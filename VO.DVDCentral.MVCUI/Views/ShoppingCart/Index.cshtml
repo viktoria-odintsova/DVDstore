@@ -1,0 +1,73 @@
+﻿@model VO.DVDCentral.BL.Models.ShoppingCart
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Items[0].Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Items[0].RatingDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Items[0].DirectorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Items[0].FormatDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Items[0].Cost)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Items) {
+<tr>
+    <td>
+        <img src="~/images/@item.ImagePath" class="imageprop" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RatingDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DirectorName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FormatDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Cost)
+    </td>
+    <td>
+        @Html.ActionLink("Remove from Cart", "RemoveFromCart", new { id = item.Id})
+    </td>
+</tr>
+}
+
+</table>
+<hr />
+<table id="checkout">
+    <tr>
+        <td>Cost</td>
+        <td>@Html.DisplayFor(model => model.TotalCost)</td>
+    </tr>
+    <tr>
+        <td>Tax</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>Total Cost</td>
+        <td>@Html.DisplayFor(model => model.TotalCost)</td>
+    </tr>
+</table>
+<br/>
+<div class="col-md-3 offset-md-5">
+    @Html.ActionLink("Check Out", "Checkout", "ShoppingCart", null, new { @class ="btn btn-primary"})
+</div>

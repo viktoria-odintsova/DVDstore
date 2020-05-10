@@ -81,3 +81,10 @@ textarea {
     max-width: 700px;
     max-height: 700px;
 }
+
+#checkout{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}

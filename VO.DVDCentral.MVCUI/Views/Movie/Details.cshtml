@@ -77,5 +77,6 @@
 </div>
 <p class="ml-2">
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Add to Cart", "AddToCart", "ShoppingCart", new { id = Model.Id }, null)
 </p>
