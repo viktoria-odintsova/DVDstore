@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.MVCUI.Models;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
@@ -15,26 +16,47 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Rating
         public ActionResult Index()
         {
-            ViewBag.Title = "Index";
-            ratings = RatingManager.Load();
-            return View(ratings);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Index";
+                ratings = RatingManager.Load();
+                return View(ratings);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
-        // GET: Rating/Details/5
-        public ActionResult Details(int id)
-        {
-            ViewBag.Title = "Details";
-            Rating rating = RatingManager.LoadById(id);
-            return View(rating);
-        }
+            // GET: Rating/Details/5
+            public ActionResult Details(int id)
+            {
+                if (Authenticate.IsAuthenticated())
+                {
+                    ViewBag.Title = "Details";
+                    Rating rating = RatingManager.LoadById(id);
+                    return View(rating);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+                }
+            }
 
-        // GET: Rating/Create
-        public ActionResult Create()
-        {
-            ViewBag.Title = "Create";
-            Rating rating = new Rating();
-            return View(rating);
-        }
+                // GET: Rating/Create
+                public ActionResult Create()
+                {
+                    if (Authenticate.IsAuthenticated())
+                    {
+                        ViewBag.Title = "Create";
+                        Rating rating = new Rating();
+                        return View(rating);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+                    }
+                }
 
         // POST: Rating/Create
         [HttpPost]
@@ -55,9 +77,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Rating/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Title = "Edit";
-            Rating rating = RatingManager.LoadById(id);
-            return View(rating);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Edit";
+                Rating rating = RatingManager.LoadById(id);
+                return View(rating);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Rating/Edit/5
@@ -79,9 +108,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Rating/Delete/5
         public ActionResult Delete(int id)
         {
-            ViewBag.Title = "Delete";
-            Rating rating = RatingManager.LoadById(id);
-            return View(rating);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Delete";
+                Rating rating = RatingManager.LoadById(id);
+                return View(rating);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Rating/Delete/5

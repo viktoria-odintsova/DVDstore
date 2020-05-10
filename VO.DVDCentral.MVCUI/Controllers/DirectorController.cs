@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.MVCUI.Models;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
@@ -13,25 +14,46 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Director
         public ActionResult Index()
         {
-            ViewBag.Title = "Index";
-            List<Director> directors = DirectorManager.Load();
-            return View(directors);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Index";
+                List<Director> directors = DirectorManager.Load();
+                return View(directors);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // GET: Director/Details/5
         public ActionResult Details(int id)
         {
-            ViewBag.Title = "Details";
-            Director director = DirectorManager.LoadById(id);
-            return View(director);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Details";
+                Director director = DirectorManager.LoadById(id);
+                return View(director);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // GET: Director/Create
         public ActionResult Create()
         {
-            ViewBag.Title = "Create";
-            Director director = new Director();
-            return View(director);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Create";
+                Director director = new Director();
+                return View(director);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Director/Create
@@ -53,9 +75,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Director/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Title = "Edit";
-            Director director = DirectorManager.LoadById(id);
-            return View(director);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Edit";
+                Director director = DirectorManager.LoadById(id);
+                return View(director);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Director/Edit/5
@@ -77,9 +106,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Director/Delete/5
         public ActionResult Delete(int id)
         {
-            ViewBag.Title = "Delete";
-            Director director = DirectorManager.LoadById(id);
-            return View(director);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Delete";
+                Director director = DirectorManager.LoadById(id);
+                return View(director);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Director/Delete/5

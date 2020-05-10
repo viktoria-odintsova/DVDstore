@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.MVCUI.Models;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
@@ -13,26 +14,47 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Order
         public ActionResult Index()
         {
-            ViewBag.Title = "Index";
-            List<Order> orders = OrderManager.Load();
-            return View();
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Index";
+                List<Order> orders = OrderManager.Load();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
-        // GET: Order/Details/5
-        public ActionResult Details(int id)
-        {
-            ViewBag.Title = "Details";
-            Order order = OrderManager.LoadById(id);
-            return View(order);
-        }
+            // GET: Order/Details/5
+            public ActionResult Details(int id)
+            {
+                if (Authenticate.IsAuthenticated())
+                {
+                    ViewBag.Title = "Details";
+                    Order order = OrderManager.LoadById(id);
+                    return View(order);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+                }
+            }
 
-        // GET: Order/Create
-        public ActionResult Create()
-        {
-            ViewBag.Title = "Create";
-            Order order = new Order();
-            return View(order);
-        }
+                // GET: Order/Create
+                public ActionResult Create()
+                {
+                    if (Authenticate.IsAuthenticated())
+                    {
+                        ViewBag.Title = "Create";
+                        Order order = new Order();
+                        return View(order);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+                    }
+                }
 
         // POST: Order/Create
         [HttpPost]
@@ -53,9 +75,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Order/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Title = "Edit";
-            Order order = OrderManager.LoadById(id);
-            return View(order);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Edit";
+                Order order = OrderManager.LoadById(id);
+                return View(order);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Order/Edit/5
@@ -77,9 +106,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Order/Delete/5
         public ActionResult Delete(int id)
         {
-            ViewBag.Title = "Delete";
-            Order order = OrderManager.LoadById(id);
-            return View(order);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Delete";
+                Order order = OrderManager.LoadById(id);
+                return View(order);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Order/Delete/5

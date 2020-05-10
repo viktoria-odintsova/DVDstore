@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.MVCUI.Models;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
@@ -14,25 +15,46 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Customer
         public ActionResult Index()
         {
-            ViewBag.Title = "Index";
-            customers = CustomerManager.Load();
-            return View(customers);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Index";
+                customers = CustomerManager.Load();
+                return View(customers);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {
-            ViewBag.Title = "Details";
-            Customer customer = CustomerManager.LoadById(id);
-            return View(customer);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Details";
+                Customer customer = CustomerManager.LoadById(id);
+                return View(customer);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // GET: Customer/Create
         public ActionResult Create()
         {
-            ViewBag.Title = "Create";
-            Customer customer = new Customer();
-            return View(customer);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Create";
+                Customer customer = new Customer();
+                return View(customer);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Customer/Create
@@ -54,9 +76,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Customer/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Title = "Edit";
-            Customer customer = CustomerManager.LoadById(id);
-            return View(customer);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Edit";
+                Customer customer = CustomerManager.LoadById(id);
+                return View(customer);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Customer/Edit/5
@@ -78,9 +107,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Customer/Delete/5
         public ActionResult Delete(int id)
         {
-            ViewBag.Title = "Delete";
-            Customer customer = CustomerManager.LoadById(id);
-            return View();
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Delete";
+                Customer customer = CustomerManager.LoadById(id);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Customer/Delete/5

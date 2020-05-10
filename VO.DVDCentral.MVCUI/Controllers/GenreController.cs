@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.MVCUI.Models;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
@@ -13,9 +14,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Genre
         public ActionResult Index()
         {
-            ViewBag.Title = "Index";
-            List<Genre> genres = GenreManager.Load();
-            return View(genres);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Index";
+                List<Genre> genres = GenreManager.Load();
+                return View(genres);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         [ChildActionOnly]
@@ -28,18 +36,32 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Genre/Details/5
         public ActionResult Details(int id)
         {
-            ViewBag.Title = "Details";
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Details";
+                Genre genre = GenreManager.LoadById(id);
+                return View(genre);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
-        // GET: Genre/Create
-        public ActionResult Create()
-        {
-            ViewBag.Title = "Create";
-            Genre genre = new Genre();
-            return View(genre);
-        }
+            // GET: Genre/Create
+            public ActionResult Create()
+            {
+                if (Authenticate.IsAuthenticated())
+                {
+                    ViewBag.Title = "Create";
+                    Genre genre = new Genre();
+                    return View(genre);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+                }
+            }
 
         // POST: Genre/Create
         [HttpPost]
@@ -60,9 +82,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Genre/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Title = "Edit";
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Edit";
+                Genre genre = GenreManager.LoadById(id);
+                return View(genre);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Genre/Edit/5
@@ -84,9 +113,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Genre/Delete/5
         public ActionResult Delete(int id)
         {
-            ViewBag.Title = "Delete";
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Delete";
+                Genre genre = GenreManager.LoadById(id);
+                return View(genre);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Genre/Delete/5

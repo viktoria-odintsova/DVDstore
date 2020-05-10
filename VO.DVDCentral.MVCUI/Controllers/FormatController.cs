@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.MVCUI.Models;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
@@ -15,26 +16,47 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Format
         public ActionResult Index()
         {
-            ViewBag.Title = "Index";
-            formats = FormatManager.Load();
-            return View(formats);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Index";
+                formats = FormatManager.Load();
+                return View(formats);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // GET: Format/Details/5
         public ActionResult Details(int id)
         {
-            ViewBag.Title = "Details";
-            Format format = new Format();
-            format = FormatManager.LoadById(id);
-            return View(format);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Details";
+                Format format = new Format();
+                format = FormatManager.LoadById(id);
+                return View(format);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // GET: Format/Create
         public ActionResult Create()
         {
-            ViewBag.Title = "Create";
-            Format format = new Format();
-            return View(format);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Create";
+                Format format = new Format();
+                return View(format);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Format/Create
@@ -56,10 +78,17 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Format/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Title = "Edit";
-            Format format = new Format();
-            format = FormatManager.LoadById(id);
-            return View(format);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Edit";
+                Format format = new Format();
+                format = FormatManager.LoadById(id);
+                return View(format);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Format/Edit/5
@@ -81,10 +110,17 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Format/Delete/5
         public ActionResult Delete(int id)
         {
-            ViewBag.Title = "Delete";
-            Format format = new Format();
-            format = FormatManager.LoadById(id);
-            return View(format);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Delete";
+                Format format = new Format();
+                format = FormatManager.LoadById(id);
+                return View(format);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Format/Delete/5

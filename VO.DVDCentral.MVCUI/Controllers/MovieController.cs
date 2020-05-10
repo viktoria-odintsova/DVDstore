@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
 using VO.DVDCentral.MVCUI.ViewModels;
+using VO.DVDCentral.MVCUI.Models;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
@@ -15,40 +16,68 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Movie
         public ActionResult Index()
         {
-            ViewBag.Title = "Index";
-            var movies = MovieManager.Load();
-            return View(movies);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Index";
+                var movies = MovieManager.Load();
+                return View(movies);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         public ActionResult Browse(int id, string description)
         {
+            if (Authenticate.IsAuthenticated())
+            {
 
-            ViewBag.Title = description;
-            var movies = MovieManager.Load(id);
-            return View("Index", movies);
+                ViewBag.Title = description;
+                var movies = MovieManager.Load(id);
+                return View("Index", movies);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // GET: Movie/Details/5
         public ActionResult Details(int id)
         {
-            ViewBag.Title = "Details";
-            var movie = MovieManager.LoadById(id);
-            return View(movie);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Details";
+                var movie = MovieManager.LoadById(id);
+                return View(movie);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // GET: Movie/Create
         public ActionResult Create()
         {
-            ViewBag.Title = "Create";
-            MovieGenresDirectorsRatingsFormats mdf = new MovieGenresDirectorsRatingsFormats();
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Create";
+                MovieGenresDirectorsRatingsFormats mdf = new MovieGenresDirectorsRatingsFormats();
 
-            mdf.Movie = new DVDCentral.BL.Models.Movie();
-            mdf.FormatList = FormatManager.Load();
-            mdf.RatingList = RatingManager.Load();
-            mdf.DirectorList = DirectorManager.Load();
-            mdf.GenreList = GenreManager.Load();
+                mdf.Movie = new DVDCentral.BL.Models.Movie();
+                mdf.FormatList = FormatManager.Load();
+                mdf.RatingList = RatingManager.Load();
+                mdf.DirectorList = DirectorManager.Load();
+                mdf.GenreList = GenreManager.Load();
 
-            return View(mdf);
+                return View(mdf);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Movie/Create
@@ -57,7 +86,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         {
             try
             {
-                if(mdf.File != null)
+                if (mdf.File != null)
                 {
                     mdf.Movie.ImagePath = mdf.File.FileName;
                     string target = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(mdf.File.FileName));
@@ -78,7 +107,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
                 mdf.GenreIds.ToList().ForEach(g => MovieGenreManager.Add(mdf.Movie.Id, g));
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
                 return View(mdf);
@@ -88,22 +117,29 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Movie/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Title = "Edit";
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Edit";
 
-            MovieGenresDirectorsRatingsFormats mgdrf = new MovieGenresDirectorsRatingsFormats();
+                MovieGenresDirectorsRatingsFormats mgdrf = new MovieGenresDirectorsRatingsFormats();
 
-            mgdrf.Movie = MovieManager.LoadById(id);
-            mgdrf.RatingList = RatingManager.Load();
-            mgdrf.FormatList = FormatManager.Load();
-            mgdrf.GenreList = GenreManager.Load();
-            mgdrf.DirectorList = DirectorManager.Load();
+                mgdrf.Movie = MovieManager.LoadById(id);
+                mgdrf.RatingList = RatingManager.Load();
+                mgdrf.FormatList = FormatManager.Load();
+                mgdrf.GenreList = GenreManager.Load();
+                mgdrf.DirectorList = DirectorManager.Load();
 
-            mgdrf.Movie.Genres = MovieManager.LoadGenres(id);
-            mgdrf.GenreIds = mgdrf.Movie.Genres.Select(g => g.Id);
-            Session["genreids"] = mgdrf.GenreIds;
+                mgdrf.Movie.Genres = MovieManager.LoadGenres(id);
+                mgdrf.GenreIds = mgdrf.Movie.Genres.Select(g => g.Id);
+                Session["genreids"] = mgdrf.GenreIds;
 
 
-            return View(mgdrf);
+                return View(mgdrf);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Movie/Edit/5
@@ -150,7 +186,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
                 MovieManager.Update(mdf.Movie);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
                 return View(mdf);
@@ -160,9 +196,16 @@ namespace VO.DVDCentral.MVCUI.Controllers
         // GET: Movie/Delete/5
         public ActionResult Delete(int id)
         {
-            ViewBag.Title = "Delete";
-            Movie movie = MovieManager.LoadById(id);
-            return View(movie);
+            if (Authenticate.IsAuthenticated())
+            {
+                ViewBag.Title = "Delete";
+                Movie movie = MovieManager.LoadById(id);
+                return View(movie);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         // POST: Movie/Delete/5
