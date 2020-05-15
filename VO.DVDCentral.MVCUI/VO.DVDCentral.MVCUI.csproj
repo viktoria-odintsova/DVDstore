@@ -368,6 +368,10 @@
       <Project>{162bfd7d-640d-4ee3-b25c-e23da7df606e}</Project>
       <Name>VO.DVDCentral.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VO.DVDCentral.PL\VO.DVDCentral.PL.csproj">
+      <Project>{3D60453D-DA1A-40E4-9163-EEA8955DD053}</Project>
+      <Name>VO.DVDCentral.PL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
 using VO.DVDCentral.MVCUI.Models;
+using VO.DVDCentral.PL;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {

@@ -18,7 +18,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
             {
                 ViewBag.Title = "Index";
                 List<Order> orders = OrderManager.Load();
-                return View();
+                return View(orders);
             }
             else
             {

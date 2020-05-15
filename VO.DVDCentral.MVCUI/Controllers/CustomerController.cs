@@ -66,6 +66,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
         {
             try
             {
+
                 // TODO: Add insert logic here
                 CustomerManager.Insert(customer);
                 return RedirectToAction("Index");

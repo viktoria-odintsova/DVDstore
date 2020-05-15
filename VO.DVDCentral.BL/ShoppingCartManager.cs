@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VO.DVDCentral.BL.Models;
+using VO.DVDCentral.PL;
 
 namespace VO.DVDCentral.BL
 {
@@ -15,7 +16,19 @@ namespace VO.DVDCentral.BL
             order.CustomerId = customerId;
             order.OrderDate = DateTime.Now;
             order.ShipDate = DateTime.Now;
-            order.UserId = user.Id;
+            using (DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                tblUser result = (from dt in dc.tblUsers
+                                  where user.UserId == dt.UserId
+                                  select dt).FirstOrDefault();
+                order.UserId = result.Id;
+
+                tblCustomer customer = (from dt in dc.tblCustomers
+                                        where order.UserId == dt.UserId
+                                        select dt).FirstOrDefault();
+                order.CustomerId = customer.Id;
+            }
+
             OrderManager.Insert(order);
 
             foreach(Movie movie in cart.Items)
