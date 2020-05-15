@@ -56,11 +56,11 @@
 <table id="checkout">
     <tr>
         <td>Cost</td>
-        <td>@Html.DisplayFor(model => model.TotalCost)</td>
+        <td>@Html.DisplayFor(model => model.Cost)</td>
     </tr>
     <tr>
         <td>Tax</td>
-        <td>-</td>
+        <td>@Html.DisplayFor(model => model.Tax)</td>
     </tr>
     <tr>
         <td>Total Cost</td>
@@ -69,5 +69,5 @@
 </table>
 <br/>
 <div class="col-md-3 offset-md-5">
-    @Html.ActionLink("Check Out", "Checkout", "ShoppingCart", null, new { @class ="btn btn-primary"})
+    @Html.ActionLink("Check Out", "Index", "Customer", null, new { @class ="btn btn-primary"})
 </div>

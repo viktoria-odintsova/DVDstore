@@ -8,9 +8,13 @@ namespace VO.DVDCentral.BL.Models
 {
     public class ShoppingCart
     {
+        const double TAX_RATE = 0.05;
         public List<Movie> Items { get; set; }
         public int TotalCount { get { return Items.Count; } }
-        public double TotalCost { get { return Items.Sum(i => i.Cost); } }
+        public double Cost { get { return Items.Sum(i => i.Cost); } }
+        public double Tax { get { return Math.Round(Cost * TAX_RATE, 2); } }
+        public double TotalCost { get { return Cost + Tax; } }
+        
 
         public ShoppingCart()
         {

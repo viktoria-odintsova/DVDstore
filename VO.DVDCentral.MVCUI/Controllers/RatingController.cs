@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using VO.DVDCentral.BL;
@@ -13,6 +16,7 @@ namespace VO.DVDCentral.MVCUI.Controllers
     {
         List<Rating> ratings;
 
+        #region "Pre-WebAPI"
         // GET: Rating
         public ActionResult Index()
         {
@@ -135,5 +139,130 @@ namespace VO.DVDCentral.MVCUI.Controllers
                 return View();
             }
         }
+        #endregion
+
+        #region "WebAPI"
+        private static HttpClient InitializeClient()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44348//api/");
+            return client;
+        }
+
+        public ActionResult Get()
+        {
+            HttpClient client = InitializeClient();
+
+            //do the actual call to the WebAPI
+            HttpResponseMessage response = client.GetAsync("Rating").Result;
+
+            //parse the result
+            string result = response.Content.ReadAsStringAsync().Result;
+
+            //parse the result into generic objects
+            dynamic items = (JArray)JsonConvert.DeserializeObject(result);
+
+            //parse the items into a list of rating
+            List<Rating> ratings = items.ToObject<List<Rating>>();
+
+            ViewBag.Source = "Get";
+            return View("Index", ratings);
+        }
+
+        public ActionResult GetOne(int id)
+        {
+            HttpClient client = InitializeClient();
+
+            //do the actual call to the WebAPI
+            HttpResponseMessage response = client.GetAsync("Rating/" + id).Result;
+
+            //parse the result
+            string result = response.Content.ReadAsStringAsync().Result;
+
+            //parse the result into generic objects
+            Rating rating = JsonConvert.DeserializeObject<Rating>(result);
+
+            return View("Details", rating);
+        }
+
+        public ActionResult Insert()
+        {
+            HttpClient client = InitializeClient();
+
+            Rating rating = new Rating();
+            return View("Create", rating);
+
+        }
+
+        [HttpPost]
+        public ActionResult Insert(Rating rating)
+        {
+            try
+            {
+                HttpClient client = InitializeClient();
+                HttpResponseMessage response = client.PostAsJsonAsync("Rating", rating).Result;
+                return RedirectToAction("Get");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("Create", rating);
+            }
+        }
+
+        public ActionResult Update(int id)
+        {
+            HttpClient client = InitializeClient();
+
+            HttpResponseMessage response = client.GetAsync("Rating/" + id).Result;
+            string result = response.Content.ReadAsStringAsync().Result;
+            Rating rating = JsonConvert.DeserializeObject<Rating>(result);
+            return View("Edit", rating);
+        }
+
+        [HttpPost]
+        public ActionResult Update(int id, Rating rating)
+        {
+            try
+            {
+                HttpClient client = InitializeClient();
+
+                HttpResponseMessage response = client.PutAsJsonAsync("Rating/" + id, rating).Result;
+                return RedirectToAction("Get");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("Edit", rating);
+            }
+        }
+
+        public ActionResult Remove(int id)
+        {
+            HttpClient client = InitializeClient();
+            HttpResponseMessage response = client.GetAsync("Rating/" + id).Result;
+            string result = response.Content.ReadAsStringAsync().Result;
+            Rating rating = JsonConvert.DeserializeObject<Rating>(result);
+            return View("Delete", rating);
+
+        }
+
+        [HttpPost]
+        public ActionResult Remove(int id, Rating rating)
+        {
+            try
+            {
+                HttpClient client = InitializeClient();
+                HttpResponseMessage response = client.DeleteAsync("Rating/" + id).Result;
+                return RedirectToAction("Get");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("Delete", rating);
+            }
+
+        }
+        #endregion
     }
 }
