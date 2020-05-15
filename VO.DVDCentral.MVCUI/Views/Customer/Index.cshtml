@@ -1,16 +1,19 @@
-﻿@model VO.DVDCentral.BL.Models.Customer
+﻿@model VO.DVDCentral.MVCUI.ViewModels.CartCustomer
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br />
+@using (Html.BeginForm())
+{
     <div class="form-group">
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.FullName, new SelectList(Model.FullName, "Id", "FullName", Model), null, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.CustomerId, new SelectList(Model.Customers, "Id", "FullName", Model.CustomerId), null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Customers, "", new { @class = "text-danger" })
         </div>
     </div>
-
-
-
+}
+<p class="ml-2">
+    @Html.ActionLink("New Customer", "Create", null, new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Checkout", "Checkout", "ShoppingCart", new { customerId = Model.CustomerId }, new { @class = "btn btn-primary" })
+</p>

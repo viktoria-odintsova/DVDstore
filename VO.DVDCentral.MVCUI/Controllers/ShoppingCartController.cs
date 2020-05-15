@@ -65,11 +65,12 @@ namespace VO.DVDCentral.MVCUI.Controllers
             return RedirectToAction("Index", "Movie");
         }
 
-        public ActionResult Checkout()
+        public ActionResult Checkout(int customerId)
         {
             GetShoppingCart();
             User user = (User)Session["user"];
-            ShoppingCartManager.Checkout(cart, user);
+
+            ShoppingCartManager.Checkout(cart, user, customerId);
             return View();
         }
     }

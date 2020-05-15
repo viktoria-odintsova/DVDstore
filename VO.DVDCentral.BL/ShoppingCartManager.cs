@@ -9,10 +9,10 @@ namespace VO.DVDCentral.BL
 {
     public static class ShoppingCartManager
     {
-        public static void Checkout(ShoppingCart cart, User user)
+        public static void Checkout(ShoppingCart cart, User user, int customerId)
         {
             Order order = new Order();
-            order.CustomerId = 0;
+            order.CustomerId = customerId;
             order.OrderDate = DateTime.Now;
             order.ShipDate = DateTime.Now;
             order.UserId = user.Id;

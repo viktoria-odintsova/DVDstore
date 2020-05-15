@@ -6,20 +6,23 @@ using System.Web.Mvc;
 using VO.DVDCentral.BL;
 using VO.DVDCentral.BL.Models;
 using VO.DVDCentral.MVCUI.Models;
+using VO.DVDCentral.MVCUI.ViewModels;
 
 namespace VO.DVDCentral.MVCUI.Controllers
 {
     public class CustomerController : Controller
     {
-        List<Customer> customers;
+        CartCustomer cc;
         // GET: Customer
         public ActionResult Index()
         {
             if (Authenticate.IsAuthenticated())
             {
-                ViewBag.Title = "Index";
-                customers = CustomerManager.Load();
-                return View(customers);
+                cc = new CartCustomer();
+                ViewBag.Title = "Assign to Customer";
+                cc.Customers = CustomerManager.Load();
+                cc.Cart = (ShoppingCart)Session["cart"];
+                return View(cc);
             }
             else
             {
